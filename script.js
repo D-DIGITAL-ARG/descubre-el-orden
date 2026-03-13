@@ -24,7 +24,7 @@ function shuffle(array) {
 function initGame() {
     secretSequence = shuffle(COLORS);
     console.log("Solution:", secretSequence.map(c => c.id));
-    
+
     renderHistoryGrid();
     renderSelectionPool();
     updateUI();
@@ -38,7 +38,7 @@ function renderHistoryGrid() {
     for (let r = 0; r < 10; r++) {
         const rowDiv = document.createElement('div');
         const isActive = r === currentRowIndex && gameActive;
-        rowDiv.className = `glass-panel rounded-xl p-3 flex items-center justify-between group transition-all duration-300 ${isActive ? 'border-primary/50 bg-white/10 scale-[1.02]' : 'hover:border-primary/30'}`;
+        rowDiv.className = `glass-panel rounded-xl p-2 flex items-center justify-between group transition-all duration-300 ${isActive ? 'border-primary/50 bg-white/10 scale-[1.02]' : 'hover:border-primary/30'}`;
         rowDiv.id = `row-${r}`;
 
         const circlesDiv = document.createElement('div');
@@ -48,24 +48,24 @@ function renderHistoryGrid() {
             const circle = document.createElement('div');
             circle.className = 'history-circle';
             circle.id = `circle-${r}-${c}`;
-            
+
             // Restore colors if selected
             if (gridState[r][c]) {
                 const color = gridState[r][c];
-                circle.style.background = `radial-gradient(circle at 30% 30%, ${color.hex}, #000)`;
+                circle.style.background = `radial-gradient(circle at 30% 30%, ${color.hex}, rgba(0,0,0,0))`;
                 circle.classList.add('filled');
             }
-            
+
             circlesDiv.appendChild(circle);
         }
 
         const scoreDiv = document.createElement('div');
         scoreDiv.className = 'text-[10px] font-black text-slate-400 flex items-center gap-2';
         scoreDiv.id = `score-${r}`;
-        
+
         const score = rowResults[r] !== null ? rowResults[r] : '-';
         const scoreColor = rowResults[r] === 4 ? 'text-green-400' : 'text-primary';
-        scoreDiv.innerHTML = `<span class="score-num text-sm font-bold ${scoreColor}">${score}</span> <span class="uppercase tracking-tighter">ACIERTOS</span>`;
+        scoreDiv.innerHTML = `<span class="score-num text-xl font-black ${scoreColor}">${score}</span> <span class="uppercase tracking-tighter text-xs font-black">ACIERTOS</span>`;
 
         rowDiv.appendChild(circlesDiv);
         rowDiv.appendChild(scoreDiv);
@@ -80,17 +80,10 @@ function renderSelectionPool() {
 
     COLORS.forEach(color => {
         const btn = document.createElement('button');
-        btn.className = 'flex flex-col items-center gap-2 group';
+        // Use the mystery-slot class to ensure exact size and layout matching
+        btn.className = `mystery-slot sphere-3d ${color.from} ${color.to} ${color.glow} cursor-pointer transition-transform hover:scale-105 active:scale-95 !border-white/10`;
+        btn.style.background = `radial-gradient(circle at 30% 30%, ${color.hex}, rgba(0,0,0,0))`;
         
-        const sphere = document.createElement('div');
-        sphere.className = `size-14 rounded-full sphere-3d ${color.from} ${color.to} ${color.glow} cursor-pointer`;
-        
-        const label = document.createElement('span');
-        label.className = `text-[9px] font-bold text-slate-400 group-hover:text-white transition-all uppercase tracking-widest`;
-        label.innerText = color.name;
-
-        btn.appendChild(sphere);
-        btn.appendChild(label);
         btn.addEventListener('click', () => handleColorSelect(color));
         container.appendChild(btn);
     });
@@ -101,7 +94,7 @@ function handleColorSelect(color) {
 
     const circle = document.getElementById(`circle-${currentRowIndex}-${currentColIndex}`);
     if (circle) {
-        circle.style.background = `radial-gradient(circle at 30% 30%, ${color.hex}, #000)`;
+        circle.style.background = `radial-gradient(circle at 30% 30%, ${color.hex}, rgba(0,0,0,0))`;
         circle.classList.add('filled', 'animate-pop');
         gridState[currentRowIndex][currentColIndex] = color;
     }
@@ -137,7 +130,7 @@ function prepareNextRow() {
     if (currentRowIndex < 10) {
         renderHistoryGrid(); // Re-render to update the visual state
         updateUI();
-        
+
         const activeRow = document.getElementById(`row-${currentRowIndex}`);
         if (activeRow) activeRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     } else {
@@ -148,12 +141,12 @@ function prepareNextRow() {
 function updateUI() {
     const badge = document.getElementById('attempt-badge');
     if (badge) badge.innerText = `INTENTO: ${String(currentRowIndex + 1).padStart(2, '0')}`;
-    
+
     const feedback = document.getElementById('feedback');
     if (feedback && currentRowIndex > 0) {
         const lastScore = rowResults[currentRowIndex - 1];
         feedback.innerText = lastScore == 0 ? "¡Ouch! Ningún color en su lugar." : `¡Ya tienes ${lastScore} en el lugar correcto!`;
-        feedback.className = "text-sm text-yellow-400 font-medium animate-pulse";
+        feedback.className = "text-lg text-yellow-400 font-medium animate-pulse";
     }
 }
 
@@ -161,12 +154,12 @@ function winGame() {
     gameActive = false;
     renderHistoryGrid(); // Update results visibility
     revealSecret();
-    
+
     document.getElementById('victory-header').style.display = 'block';
     document.getElementById('game-title').style.display = 'none';
-    document.getElementById('player-slots').style.display = 'none';
+    document.getElementById('selection-container').style.display = 'none';
     document.getElementById('reset-container').style.display = 'flex';
-    
+
     const feedback = document.getElementById('feedback');
     feedback.innerText = "¡Has descubierto el orden exacto!";
     feedback.className = "text-lg text-yellow-400 font-black uppercase tracking-tighter";
@@ -180,9 +173,9 @@ function endGame(won) {
     if (!won) {
         document.getElementById('failure-header').style.display = 'block';
         document.getElementById('game-title').style.display = 'none';
-        document.getElementById('player-slots').style.display = 'none';
+        document.getElementById('selection-container').style.display = 'none';
         document.getElementById('reset-container').style.display = 'flex';
-        
+
         const feedback = document.getElementById('feedback');
         feedback.innerText = "¡Vuelve a intentarlo!";
         feedback.className = "text-lg text-red-500 font-black uppercase";
@@ -190,11 +183,11 @@ function endGame(won) {
 }
 
 function revealSecret() {
-    const slots = document.querySelectorAll('.mystery-slot');
+    const slots = document.querySelectorAll('#hidden-zone .mystery-slot');
     slots.forEach((slot, i) => {
         slot.innerHTML = '';
         slot.className = `mystery-slot revealed ${secretSequence[i].from} ${secretSequence[i].to}`;
-        slot.style.background = `radial-gradient(circle at 30% 30%, ${secretSequence[i].hex}, #000)`;
+        slot.style.background = `radial-gradient(circle at 30% 30%, ${secretSequence[i].hex}, rgba(0,0,0,0))`;
     });
 }
 

@@ -10,8 +10,7 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
 
     <script id="tailwind-config">
@@ -40,14 +39,14 @@
                 backdrop-filter: blur(12px);
                 border: 1px solid rgba(255, 255, 255, 0.1);
             }
-            .neo-glow-blue { box-shadow: 0 0 15px rgba(59, 130, 246, 0.4); }
-            .neo-glow-red { box-shadow: 0 0 15px rgba(239, 68, 68, 0.4); }
-            .neo-glow-yellow { box-shadow: 0 0 15px rgba(234, 179, 8, 0.4); }
-            .neo-glow-green { box-shadow: 0 0 15px rgba(34, 197, 94, 0.4); }
+            .neo-glow-blue { box-shadow: 0 0 15px rgba(59, 130, 246, 1); }
+            .neo-glow-red { box-shadow: 0 0 15px rgba(239, 68, 68, 1); }
+            .neo-glow-yellow { box-shadow: 0 0 15px rgba(234, 179, 8, 1); }
+            .neo-glow-green { box-shadow: 0 0 15px rgba(34, 197, 94, 1); }
             
             .sphere-3d {
                 background: radial-gradient(circle at 30% 30%, var(--tw-gradient-from), var(--tw-gradient-to));
-                box-shadow: inset -3px -3px 8px rgba(0,0,0,0.4), 2px 4px 8px rgba(0,0,0,0.3);
+                box-shadow: inset -3px -3px 8px rgba(0,0,0,0), 2px 4px 8px rgba(0,0,0,0);
                 transition: transform 0.2s ease, box-shadow 0.2s ease;
             }
             .sphere-3d:active {
@@ -55,16 +54,16 @@
             }
             
             .history-circle {
-                width: 1.25rem;
-                height: 1.25rem;
+                width: 1.8rem;
+                height: 1.8rem;
                 border-radius: 9999px;
-                border: 2px solid rgba(255, 255, 255, 0.2);
+                border: 1px solid rgba(255, 255, 255, 0.5);
                 background-color: rgba(255, 255, 255, 0.05);
                 transition: all 500ms;
             }
             .history-circle.filled {
                 border-color: transparent;
-                box-shadow: inset -2px -2px 5px rgba(0,0,0,0.4), 1px 2px 4px rgba(0,0,0,0.3);
+                box-shadow: inset -2px -2px 5px rgba(0,0,0,0), 1px 2px 4px rgba(0,0,0,0);
             }
 
             .custom-scrollbar::-webkit-scrollbar { width: 4px; }
@@ -72,20 +71,20 @@
             .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(236, 91, 19, 0.3); border-radius: 10px; }
 
             .mystery-slot {
-                aspect-ratio: 1 / 1;
+                width: 3.5rem;
+                height: 3.5rem;
+                border-radius: 9999px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                border-radius: 0.75rem;
                 background-color: rgba(255, 255, 255, 0.05);
-                border: 1px solid rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.2);
                 color: rgba(255, 255, 255, 0.2);
-                transition: all 700ms;
+                transition: all 400ms ease;
             }
             .mystery-slot.revealed {
                 border-color: transparent;
-                transform: scale(1.1);
-                box-shadow: inset -3px -3px 8px rgba(0,0,0,0.4), 2px 4px 8px rgba(0,0,0,0.3);
+                box-shadow: inset -3px -3px 8px rgba(0,0,0,0), 2px 4px 8px rgba(0,0,0,0);
             }
 
             @keyframes popIn {
@@ -98,20 +97,21 @@
 </head>
 
 <body class="font-display bg-background-dark text-slate-100 h-screen overflow-hidden selection:bg-primary/30">
-    <div class="relative h-full flex flex-col bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-from),_transparent_50%),_radial-gradient(circle_at_bottom_left,_var(--tw-gradient-from),_transparent_50%)] from-primary/10 via-background-dark to-primary/5">
-        
-        <main class="flex-1 max-w-7xl mx-auto px-6 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8 w-full min-h-0 overflow-hidden">
-            
+    <div
+        class="relative h-full flex flex-col bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-from),_transparent_50%),_radial-gradient(circle_at_bottom_left,_var(--tw-gradient-from),_transparent_50%)] from-primary/10 via-background-dark to-primary/5">
+
+        <main
+            class="flex-1 max-w-7xl mx-auto px-6 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8 w-full min-h-0 overflow-hidden">
+
             <!-- Side Panel: History -->
             <aside class="lg:col-span-4 flex flex-col min-h-0 py-2">
-                <div class="flex items-center justify-between mb-4 shrink-0">
-                    <h3 class="text-sm font-bold flex items-center gap-2">
-                        <span class="material-symbols-outlined text-primary text-xl">history</span>
-                        INTENTOS
-                    </h3>
-                    <span id="attempt-badge" class="text-[10px] font-bold px-3 py-1 rounded-full bg-primary/20 text-primary uppercase tracking-wider">INTENTO: 01</span>
+                <div class="flex items-center mb-4 shrink-0">
+                    <span id="attempt-badge"
+                        class="text-lg font-black px-4 py-1.5 rounded-full bg-primary text-white uppercase tracking-widest shadow-[0_0_20px_rgba(236,91,19,0.3)]">
+                        INTENTO: 01
+                    </span>
                 </div>
-                
+
                 <div id="history-grid" class="flex-1 space-y-2 overflow-y-auto pr-3 custom-scrollbar">
                     <!-- 10 rows will be injected here via JS -->
                 </div>
@@ -119,65 +119,72 @@
 
             <!-- Main Interaction Zone -->
             <section class="lg:col-span-8 flex flex-col justify-center gap-6 min-h-0 py-2">
-                
+
                 <div class="text-center shrink-0">
                     <!-- Dynamic Headers -->
                     <div id="victory-header" style="display: none;" class="animate-pop mb-2">
-                        <h2 class="text-4xl font-black text-yellow-400 tracking-tighter shadow-yellow-500/20">¡FELICITACIONES!</h2>
+                        <h2 class="text-4xl font-black text-yellow-400 tracking-tighter shadow-yellow-500/20">
+                            ¡FELICITACIONES!</h2>
                     </div>
                     <div id="failure-header" style="display: none;" class="animate-pop mb-2">
                         <h2 class="text-4xl font-black text-red-500 tracking-tighter">¡FIN DEL JUEGO!</h2>
                     </div>
-                    
-                    <h1 id="game-title" class="text-3xl font-black tracking-tighter text-white mb-4 uppercase">
+
+                    <h1 id="game-title" class="text-3xl font-black tracking-tighter text-white uppercase">
                         Descubre el <span class="text-primary italic">Orden</span>
                     </h1>
+                </div>
 
-                    <!-- Hidden Sequence (Solution) -->
-                    <div class="glass-panel rounded-3xl p-5 max-w-md mx-auto border-dashed border-2 border-white/20">
-                        <div id="hidden-zone" class="grid grid-cols-4 gap-4">
-                            <div class="mystery-slot" data-index="0">
-                                <span class="material-symbols-outlined text-3xl">question_mark</span>
-                            </div>
-                            <div class="mystery-slot" data-index="1">
-                                <span class="material-symbols-outlined text-3xl">question_mark</span>
-                            </div>
-                            <div class="mystery-slot" data-index="2">
-                                <span class="material-symbols-outlined text-3xl">question_mark</span>
-                            </div>
-                            <div class="mystery-slot" data-index="3">
-                                <span class="material-symbols-outlined text-3xl">question_mark</span>
-                            </div>
+                <!-- Hidden Sequence Area -->
+                <div id="hidden-container" class="glass-panel rounded-3xl p-5 bg-white/5 border-white/10 mx-auto w-full max-w-sm shadow-2xl">
+                    <div id="hidden-zone" class="flex justify-center gap-6">
+                        <div class="mystery-slot" data-index="0">
+                            <span class="material-symbols-outlined text-3xl">question_mark</span>
                         </div>
-                    </div>
-
-                    <div class="mt-4">
-                        <p id="feedback" class="text-sm text-slate-400 font-medium italic">
-                            Para comenzar selecciona los colores en el orden deseado...
-                        </p>
+                        <div class="mystery-slot" data-index="1">
+                            <span class="material-symbols-outlined text-3xl">question_mark</span>
+                        </div>
+                        <div class="mystery-slot" data-index="2">
+                            <span class="material-symbols-outlined text-3xl">question_mark</span>
+                        </div>
+                        <div class="mystery-slot" data-index="3">
+                            <span class="material-symbols-outlined text-3xl">question_mark</span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Color Selection Pool -->
-                <div id="selection-container" class="glass-panel rounded-3xl p-6 bg-white/5 border-white/10 shrink-0 mx-auto w-full max-w-md shadow-2xl">
+                <div class="text-center">
+                    <p id="feedback" class="text-lg text-slate-400 font-medium italic">
+                        Para comenzar selecciona los colores en el orden deseado...
+                    </p>
+                </div>
+
+                <!-- Color Selection Area -->
+                <div id="selection-container"
+                    class="glass-panel rounded-3xl p-5 bg-white/5 border-white/10 mx-auto w-full max-w-sm shadow-2xl">
                     <div id="player-slots" class="flex justify-center gap-6">
                         <!-- Tokens injected via JS -->
                     </div>
-                    
-                    <!-- Reset Button (Hidden usually) -->
-                    <div id="reset-container" class="mt-6 flex justify-center" style="display: none;">
-                        <button onclick="location.reload()" class="px-8 py-3 bg-primary text-white font-black text-sm rounded-full shadow-[0_0_20px_rgba(236,91,19,0.3)] hover:shadow-[0_0_30px_rgba(236,91,19,0.5)] hover:scale-105 transition-all uppercase tracking-widest">
-                            Jugar de Nuevo
-                        </button>
-                    </div>
+                </div>
+
+                <!-- Global Reset Action -->
+                <div id="reset-container" class="flex justify-center" style="display: none;">
+                    <button onclick="location.reload()"
+                        class="px-8 py-3 bg-primary text-white font-black text-sm rounded-full shadow-[0_0_20px_rgba(236,91,19,0.3)] hover:shadow-[0_0_30px_rgba(236,91,19,0.5)] hover:scale-105 transition-all uppercase tracking-widest">
+                        Jugar de Nuevo
+                    </button>
                 </div>
 
             </section>
         </main>
 
         <!-- Background Decorative Orbs -->
-        <div class="absolute -top-[5%] -left-[5%] size-[400px] bg-primary/20 blur-[120px] rounded-full pointer-events-none"></div>
-        <div class="absolute -bottom-[5%] -right-[5%] size-[500px] bg-blue-600/10 blur-[150px] rounded-full pointer-events-none"></div>
+        <div
+            class="absolute -top-[5%] -left-[5%] size-[400px] bg-primary/20 blur-[120px] rounded-full pointer-events-none">
+        </div>
+        <div
+            class="absolute -bottom-[5%] -right-[5%] size-[500px] bg-blue-600/10 blur-[150px] rounded-full pointer-events-none">
+        </div>
     </div>
 
     <!-- Logic Script -->
