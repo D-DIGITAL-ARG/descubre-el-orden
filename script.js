@@ -64,7 +64,7 @@ function renderHistoryGrid() {
 
         const score = rowResults[r] !== null ? rowResults[r] : '-';
         const scoreColor = rowResults[r] === 4 ? 'text-green-400' : 'text-primary';
-        scoreDiv.innerHTML = `<span class="score-num text-lg font-black ${scoreColor}">${score}</span> <span class="uppercase tracking-tighter text-[10px] font-black text-slate-400">ACIERTOS</span>`;
+        scoreDiv.innerHTML = `<span class="score-num text-lg lg:text-xl font-black ${scoreColor}">${score}</span> <span class="uppercase tracking-tighter text-[10px] font-black text-slate-400">ACIERTOS</span>`;
 
         rowDiv.appendChild(circlesDiv);
         rowDiv.appendChild(scoreDiv);
