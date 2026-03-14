@@ -1,4 +1,3 @@
-// ... (mantenemos las constantes COLORS y el estado inicial igual)
 const COLORS = [
     { id: 'blue', name: 'Azul', hex: '#0037fd', from: 'from-blue-400', to: 'to-blue-700', glow: 'neo-glow-blue' },
     { id: 'yellow', name: 'Amarillo', hex: '#fff200', from: 'from-yellow-300', to: 'to-yellow-600', glow: 'neo-glow-yellow' },
@@ -37,7 +36,7 @@ function renderHistoryGrid() {
     for (let r = 0; r < 10; r++) {
         const rowDiv = document.createElement('div');
         const isActive = r === currentRowIndex && gameActive;
-        // Ajustamos py-1 para que las filas sean más compactas en móvil
+        // py-1 para que las filas sean ultra compactas en el historial
         rowDiv.className = `glass-panel rounded-xl py-1 px-3 lg:p-2 flex items-center justify-between group transition-all duration-300 ${isActive ? 'border-primary/80 bg-white/10' : 'hover:border-primary/30'}`;
         rowDiv.id = `row-${r}`;
 
@@ -63,7 +62,7 @@ function renderHistoryGrid() {
 
         const score = rowResults[r] !== null ? rowResults[r] : '-';
         const scoreColor = rowResults[r] === 4 ? 'text-green-400' : 'text-primary';
-        // Reducimos tamaños para móvil
+        // Texto más pequeño para aciertos
         scoreDiv.innerHTML = `<span class="score-num text-lg lg:text-xl font-black ${scoreColor}">${score}</span> <span class="uppercase tracking-tighter text-[10px] font-black text-slate-400">ACIERTOS</span>`;
 
         rowDiv.appendChild(circlesDiv);
@@ -72,8 +71,6 @@ function renderHistoryGrid() {
     }
 }
 
-// ... Resto de funciones (renderSelectionPool, handleColorSelect, etc.) se mantienen igual
-// Asegúrate de mantener toda la lógica de juego intacta
 function renderSelectionPool() {
     const container = document.getElementById('player-slots');
     if (!container) return;
@@ -83,21 +80,25 @@ function renderSelectionPool() {
         const btn = document.createElement('button');
         btn.className = `mystery-slot sphere-3d ${color.from} ${color.to} ${color.glow} cursor-pointer transition-transform hover:scale-105 active:scale-95 !border-white/10`;
         btn.style.background = `radial-gradient(circle at 30% 30%, ${color.hex}, rgba(0,0,0,0))`;
-        btn.onclick = () => handleColorSelect(color);
+        btn.addEventListener('click', () => handleColorSelect(color));
         container.appendChild(btn);
     });
 }
 
 function handleColorSelect(color) {
     if (!gameActive || currentRowIndex >= 10) return;
+
     const circle = document.getElementById(`circle-${currentRowIndex}-${currentColIndex}`);
     if (circle) {
         circle.style.background = `radial-gradient(circle at 30% 30%, ${color.hex}, rgba(0,0,0,0))`;
         circle.classList.add('filled', 'animate-pop');
         gridState[currentRowIndex][currentColIndex] = color;
     }
+
     currentColIndex++;
-    if (currentColIndex === 4) checkRowAttempt(currentRowIndex);
+    if (currentColIndex === 4) {
+        checkRowAttempt(currentRowIndex);
+    }
 }
 
 function checkRowAttempt(rowIndex) {
@@ -107,7 +108,12 @@ function checkRowAttempt(rowIndex) {
         if (playerRow[i].id === secretSequence[i].id) correct++;
     }
     rowResults[rowIndex] = correct;
-    if (correct === 4) winGame(); else prepareNextRow();
+
+    if (correct === 4) {
+        winGame();
+    } else {
+        prepareNextRow();
+    }
 }
 
 function prepareNextRow() {
@@ -118,17 +124,20 @@ function prepareNextRow() {
         updateUI();
         const activeRow = document.getElementById(`row-${currentRowIndex}`);
         if (activeRow) activeRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    } else endGame(false);
+    } else {
+        endGame(false);
+    }
 }
 
 function updateUI() {
     const badge = document.getElementById('attempt-badge');
     if (badge) badge.innerText = `INTENTO: ${String(currentRowIndex + 1).padStart(2, '0')}`;
+
     const feedback = document.getElementById('feedback');
     if (feedback && currentRowIndex > 0) {
         const lastScore = rowResults[currentRowIndex - 1];
         feedback.innerText = lastScore == 0 ? "¡Ouch! Ningún color en su lugar." : `¡Ya tienes ${lastScore} en el lugar correcto!`;
-        feedback.className = "text-sm lg:text-lg text-yellow-400 font-medium animate-pulse";
+        feedback.className = "text-xs lg:text-lg text-yellow-400 font-medium animate-pulse";
     }
 }
 
