@@ -219,6 +219,10 @@ body {
 }
 
 @media (min-width: 768px) {
+    .lg\:grid {
+        display: grid;
+    }
+
     .lg\:grid-cols-12 {
         grid-template-columns: repeat(12, minmax(0, 1fr));
     }
@@ -253,6 +257,10 @@ body {
         gap: 1.5rem;
     }
 
+    .lg\:gap-2 {
+        gap: 0.5rem;
+    }
+
     .lg\:justify-center {
         justify-content: center;
     }
@@ -269,8 +277,36 @@ body {
         padding: 0.5rem;
     }
 
-    .lg\:gap-2 {
-        gap: 0.5rem;
+    .lg\:max-h-full {
+        max-height: 100%;
+    }
+
+    .lg\:mb-0 {
+        margin-bottom: 0px;
+    }
+
+    .lg\:mt-0 {
+        margin-top: 0px;
+    }
+
+    .lg\:text-lg {
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+    }
+
+    .lg\:text-4xl {
+        font-size: 2.25rem;
+        line-height: 2.5rem;
+    }
+
+    .lg\:text-5xl {
+        font-size: 3rem;
+        line-height: 1;
+    }
+
+    .lg\:text-sm {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
     }
 }
 

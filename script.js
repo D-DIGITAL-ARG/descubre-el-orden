@@ -137,7 +137,7 @@ function updateUI() {
     if (feedback && currentRowIndex > 0) {
         const lastScore = rowResults[currentRowIndex - 1];
         feedback.innerText = lastScore == 0 ? "¡Ouch! Ningún color en su lugar." : `¡Ya tienes ${lastScore} en el lugar correcto!`;
-        feedback.className = "text-xs lg:text-lg text-yellow-400 font-medium animate-pulse";
+        feedback.className = "text-lg lg:text-lg text-yellow-400 font-medium animate-pulse";
     }
 }
 
