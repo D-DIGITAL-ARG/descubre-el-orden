@@ -59,7 +59,7 @@ function renderHistoryGrid() {
         }
 
         const scoreDiv = document.createElement('div');
-        scoreDiv.className = 'text-[10px] font-black text-slate-400 flex items-center gap-2';
+        scoreDiv.className = 'flex items-center gap-2';
         scoreDiv.id = `score-${r}`;
 
         const score = rowResults[r] !== null ? rowResults[r] : '-';
