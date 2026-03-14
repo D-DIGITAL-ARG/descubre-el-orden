@@ -42,7 +42,7 @@ function renderHistoryGrid() {
         rowDiv.id = `row-${r}`;
 
         const circlesDiv = document.createElement('div');
-        circlesDiv.className = 'flex gap-3';
+        circlesDiv.className = 'flex gap-1.5';
 
         for (let c = 0; c < 4; c++) {
             const circle = document.createElement('div');
