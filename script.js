@@ -38,11 +38,11 @@ function renderHistoryGrid() {
     for (let r = 0; r < 10; r++) {
         const rowDiv = document.createElement('div');
         const isActive = r === currentRowIndex && gameActive;
-        rowDiv.className = `glass-panel rounded-xl p-2 flex items-center justify-between group transition-all duration-300 ${isActive ? 'border-primary/50 bg-white/10 scale-[1.02]' : 'hover:border-primary/30'}`;
+        rowDiv.className = `glass-panel rounded-xl p-2 flex items-center justify-between group transition-all duration-300 ${isActive ? 'border-primary/80 bg-white/10' : 'hover:border-primary/30'}`;
         rowDiv.id = `row-${r}`;
 
         const circlesDiv = document.createElement('div');
-        circlesDiv.className = 'flex gap-2';
+        circlesDiv.className = 'flex gap-3';
 
         for (let c = 0; c < 4; c++) {
             const circle = document.createElement('div');
@@ -83,7 +83,7 @@ function renderSelectionPool() {
         // Use the mystery-slot class to ensure exact size and layout matching
         btn.className = `mystery-slot sphere-3d ${color.from} ${color.to} ${color.glow} cursor-pointer transition-transform hover:scale-105 active:scale-95 !border-white/10`;
         btn.style.background = `radial-gradient(circle at 30% 30%, ${color.hex}, rgba(0,0,0,0))`;
-        
+
         btn.addEventListener('click', () => handleColorSelect(color));
         container.appendChild(btn);
     });
