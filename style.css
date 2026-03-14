@@ -58,6 +58,10 @@ body {
     justify-content: center;
 }
 
+.justify-start {
+    justify-content: flex-start;
+}
+
 .justify-between {
     justify-content: space-between;
 }
@@ -135,11 +139,13 @@ body {
 }
 
 .py-1 {
-    padding: 0.15rem;
+    padding-top: 0.15rem;
+    padding-bottom: 0.15rem;
 }
 
 .p-2 {
-    padding: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 }
 
 .p-5 {
