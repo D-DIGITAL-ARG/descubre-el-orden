@@ -187,7 +187,7 @@ body {
     grid-template-rows: 1fr auto;
 }
 
-@media (min-width: 1024px) {
+@media (max-width: 768px) {
     .lg\:grid-cols-12 {
         grid-template-columns: repeat(12, minmax(0, 1fr));
     }
@@ -453,7 +453,7 @@ body {
     transition: all 500ms;
 }
 
-@media (min-width: 1024px) {
+@media (max-width: 768px) {
     .history-circle {
         width: 1.8rem;
         height: 1.8rem;
@@ -491,7 +491,7 @@ body {
     transition: all 400ms ease;
 }
 
-@media (min-width: 1024px) {
+@media (max-width: 768px) {
     .mystery-slot {
         width: 3.5rem;
         height: 3.5rem;
