@@ -38,7 +38,7 @@ function renderHistoryGrid() {
     for (let r = 0; r < 10; r++) {
         const rowDiv = document.createElement('div');
         const isActive = r === currentRowIndex && gameActive;
-        rowDiv.className = `glass-panel rounded-xl p-1 lg:p-2 flex items-center justify-between group transition-all duration-300 ${isActive ? 'border-primary/80 bg-white/10' : 'hover:border-primary/30'}`;
+        rowDiv.className = `glass-panel rounded-xl py-1 px-4 lg:p-2 flex items-center justify-between group transition-all duration-300 ${isActive ? 'border-primary/80 bg-white/10' : 'hover:border-primary/30'}`;
         rowDiv.id = `row-${r}`;
 
         const circlesDiv = document.createElement('div');
