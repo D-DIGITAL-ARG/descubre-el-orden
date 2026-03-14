@@ -18,13 +18,13 @@
 <body class="font-display bg-background-dark text-slate-100 h-screen overflow-hidden selection:bg-primary/30">
     <div class="relative h-full flex flex-col bg-gradient-radial">
 
-        <!-- Quitamos el grid en móvil para evitar la reserva de espacio de las celdas automáticas -->
+        <!-- Corregido: Usamos 'block' en móvil y forzamos 'lg:grid' con columnas para escritorio -->
         <main
-            class="flex-1 max-w-7xl mx-auto px-4 py-1 block lg:grid lg:grid-cols-12 lg:gap-6 w-full min-h-0 overflow-hidden">
+            class="flex-1 max-w-7xl mx-auto px-4 py-1 block lg:grid lg:grid-cols-12 lg:gap-8 w-full min-h-0 overflow-hidden">
 
             <!-- Side Panel: History -->
-            <!-- Eliminamos flex-1 en móvil para que el contenedor solo mida lo que ocupen sus filas -->
-            <aside class="flex flex-col lg:flex-1 lg:col-span-4 max-h-[35vh] lg:max-h-none min-h-0 mb-1 lg:mb-0">
+            <!-- En escritorio ocupa 4 de 12 columnas. En móvil altura limitada. -->
+            <aside class="flex flex-col lg:col-span-4 max-h-[35vh] lg:max-h-full min-h-0 mb-1 lg:mb-0">
                 <div class="flex items-center p-2 px-4 shrink-0">
                     <span id="attempt-badge"
                         class="text-base lg:text-lg font-black px-4 py-1 rounded-full bg-primary text-white uppercase tracking-widest shadow-[0_0_20px_rgba(236,91,19,0.3)]">
@@ -32,13 +32,13 @@
                     </span>
                 </div>
 
-                <div id="history-grid" class="flex flex-col gap-1 lg:gap-2 overflow-y-auto px-4 custom-scrollbar">
+                <div id="history-grid" class="flex-1 flex flex-col gap-1 lg:gap-2 overflow-y-auto px-4 custom-scrollbar">
                     <!-- Filas inyectadas vía JS -->
                 </div>
             </aside>
 
             <!-- Main Interaction Zone -->
-            <!-- El margen negativo -mt-3 succiona el bloque hacia arriba en móvil -->
+            <!-- En escritorio ocupa 8 de 12 columnas. El margen negativo solo se aplica en móvil. -->
             <section
                 class="lg:col-span-8 flex flex-col justify-start lg:justify-center gap-1 lg:gap-6 min-h-0 -mt-3 lg:mt-0">
 
