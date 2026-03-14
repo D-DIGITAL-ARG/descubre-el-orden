@@ -82,6 +82,10 @@ body {
     gap: 1rem;
 }
 
+.gap-5 {
+    gap: 1.25rem;
+}
+
 .gap-6 {
     gap: 1.5rem;
 }
