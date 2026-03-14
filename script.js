@@ -79,10 +79,8 @@ function renderSelectionPool() {
 
     COLORS.forEach(color => {
         const btn = document.createElement('button');
-        // Use the mystery-slot class to ensure exact size and layout matching
         btn.className = `mystery-slot sphere-3d ${color.from} ${color.to} ${color.glow} cursor-pointer transition-transform hover:scale-105 active:scale-95 !border-white/10`;
         btn.style.background = `radial-gradient(circle at 30% 30%, ${color.hex}, rgba(0,0,0,0))`;
-
         btn.addEventListener('click', () => handleColorSelect(color));
         container.appendChild(btn);
     });
@@ -145,7 +143,7 @@ function updateUI() {
     if (feedback && currentRowIndex > 0) {
         const lastScore = rowResults[currentRowIndex - 1];
         feedback.innerText = lastScore == 0 ? "¡Ouch! Ningún color en su lugar." : `¡Ya tienes ${lastScore} en el lugar correcto!`;
-        feedback.className = "text-xs lg:text-lg text-yellow-400 font-medium animate-pulse";
+        feedback.className = "text-lg lg:text-lg text-yellow-400 font-medium animate-pulse";
     }
 }
 
