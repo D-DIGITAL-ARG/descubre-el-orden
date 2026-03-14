@@ -23,6 +23,7 @@ function shuffle(array) {
 
 function initGame() {
     secretSequence = shuffle(COLORS);
+    console.log("Solution:", secretSequence.map(c => c.id));
     renderHistoryGrid();
     renderSelectionPool();
     updateUI();
@@ -36,7 +37,6 @@ function renderHistoryGrid() {
     for (let r = 0; r < 10; r++) {
         const rowDiv = document.createElement('div');
         const isActive = r === currentRowIndex && gameActive;
-        // py-1 para que las filas sean ultra compactas en el historial
         rowDiv.className = `glass-panel rounded-xl py-1 px-3 lg:p-2 flex items-center justify-between group transition-all duration-300 ${isActive ? 'border-primary/80 bg-white/10' : 'hover:border-primary/30'}`;
         rowDiv.id = `row-${r}`;
 
@@ -48,22 +48,23 @@ function renderHistoryGrid() {
             circle.className = 'history-circle';
             circle.id = `circle-${r}-${c}`;
 
+            // Restore colors if selected
             if (gridState[r][c]) {
                 const color = gridState[r][c];
                 circle.style.background = `radial-gradient(circle at 30% 30%, ${color.hex}, rgba(0,0,0,0))`;
                 circle.classList.add('filled');
             }
+
             circlesDiv.appendChild(circle);
         }
 
         const scoreDiv = document.createElement('div');
-        scoreDiv.className = 'flex items-center gap-2';
+        scoreDiv.className = 'text-[10px] font-black text-slate-400 flex items-center gap-2';
         scoreDiv.id = `score-${r}`;
 
         const score = rowResults[r] !== null ? rowResults[r] : '-';
         const scoreColor = rowResults[r] === 4 ? 'text-green-400' : 'text-primary';
-        // Texto más pequeño para aciertos
-        scoreDiv.innerHTML = `<span class="score-num text-lg lg:text-xl font-black ${scoreColor}">${score}</span> <span class="uppercase tracking-tighter text-[10px] font-black text-slate-400">ACIERTOS</span>`;
+        scoreDiv.innerHTML = `<span class="score-num text-lg font-black ${scoreColor}">${score}</span> <span class="uppercase tracking-tighter text-[10px] font-black text-slate-400">ACIERTOS</span>`;
 
         rowDiv.appendChild(circlesDiv);
         rowDiv.appendChild(scoreDiv);
@@ -78,8 +79,10 @@ function renderSelectionPool() {
 
     COLORS.forEach(color => {
         const btn = document.createElement('button');
+        // Use the mystery-slot class to ensure exact size and layout matching
         btn.className = `mystery-slot sphere-3d ${color.from} ${color.to} ${color.glow} cursor-pointer transition-transform hover:scale-105 active:scale-95 !border-white/10`;
         btn.style.background = `radial-gradient(circle at 30% 30%, ${color.hex}, rgba(0,0,0,0))`;
+
         btn.addEventListener('click', () => handleColorSelect(color));
         container.appendChild(btn);
     });
@@ -96,6 +99,7 @@ function handleColorSelect(color) {
     }
 
     currentColIndex++;
+
     if (currentColIndex === 4) {
         checkRowAttempt(currentRowIndex);
     }
@@ -104,10 +108,12 @@ function handleColorSelect(color) {
 function checkRowAttempt(rowIndex) {
     const playerRow = gridState[rowIndex];
     let correct = 0;
+
     for (let i = 0; i < 4; i++) {
         if (playerRow[i].id === secretSequence[i].id) correct++;
     }
-    rowResults[rowIndex] = correct;
+
+    rowResults[rowIndex] = correct; // Save the result
 
     if (correct === 4) {
         winGame();
@@ -119,9 +125,11 @@ function checkRowAttempt(rowIndex) {
 function prepareNextRow() {
     currentRowIndex++;
     currentColIndex = 0;
+
     if (currentRowIndex < 10) {
-        renderHistoryGrid();
+        renderHistoryGrid(); // Re-render to update the visual state
         updateUI();
+
         const activeRow = document.getElementById(`row-${currentRowIndex}`);
         if (activeRow) activeRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     } else {
@@ -143,23 +151,33 @@ function updateUI() {
 
 function winGame() {
     gameActive = false;
-    renderHistoryGrid();
+    renderHistoryGrid(); // Update results visibility
     revealSecret();
+
     document.getElementById('victory-header').style.display = 'block';
     document.getElementById('game-title').style.display = 'none';
     document.getElementById('selection-container').style.display = 'none';
     document.getElementById('reset-container').style.display = 'flex';
+
+    const feedback = document.getElementById('feedback');
+    feedback.innerText = "¡Has descubierto el orden exacto!";
+    feedback.className = "text-lg text-yellow-400 font-black uppercase tracking-tighter";
 }
 
 function endGame(won) {
     gameActive = false;
     renderHistoryGrid();
     revealSecret();
+
     if (!won) {
         document.getElementById('failure-header').style.display = 'block';
         document.getElementById('game-title').style.display = 'none';
         document.getElementById('selection-container').style.display = 'none';
         document.getElementById('reset-container').style.display = 'flex';
+
+        const feedback = document.getElementById('feedback');
+        feedback.innerText = "¡Vuelve a intentarlo!";
+        feedback.className = "text-lg text-red-500 font-black uppercase";
     }
 }
 
