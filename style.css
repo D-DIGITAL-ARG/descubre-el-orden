@@ -179,6 +179,18 @@ body {
     margin-bottom: 0rem;
 }
 
+.pb-0 {
+    padding-bottom: 0;
+}
+
+.mb-0 {
+    margin-bottom: 0;
+}
+
+.mb-1 {
+    margin-bottom: 0.25rem;
+}
+
 .pt-1 {
     padding-top: 0.25rem;
 }
