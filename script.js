@@ -81,19 +81,43 @@ function renderSelectionPool() {
         const btn = document.createElement('button');
         btn.className = `mystery-slot sphere-3d ${color.from} ${color.to} ${color.glow} cursor-pointer transition-transform hover:scale-105 active:scale-95 !border-white/10`;
         btn.style.background = `radial-gradient(circle at 30% 30%, ${color.hex}, rgba(0,0,0,0))`;
-        btn.addEventListener('click', () => handleColorSelect(color));
+        btn.dataset.colorId = color.id; // Añadir ID para referencia
+        btn.addEventListener('click', (e) => handleColorSelect(color, e.currentTarget));
         container.appendChild(btn);
     });
 }
 
-function handleColorSelect(color) {
+function handleColorSelect(color, targetBtn) {
     if (!gameActive || currentRowIndex >= 10) return;
+
+    // Si el botón ya está deshabilitado, no hacer nada
+    if (targetBtn && targetBtn.disabled) return;
+
+    const alreadySelected = gridState[currentRowIndex].some(c => c && c.id === color.id);
+    if (alreadySelected) {
+        const feedback = document.getElementById('feedback');
+        if (feedback) {
+            feedback.innerText = "¡Ese color ya lo usaste en este intento!";
+            feedback.className = "text-lg lg:text-lg mb-0 text-red-400 font-bold animate-pulse";
+            
+            // Volver al estilo normal después de 2 segundos
+            setTimeout(() => {
+                if (gameActive && feedback.innerText === "¡Ese color ya lo usaste en este intento!") {
+                    updateUI();
+                }
+            }, 2000);
+        }
+        return;
+    }
 
     const circle = document.getElementById(`circle-${currentRowIndex}-${currentColIndex}`);
     if (circle) {
         circle.style.background = `radial-gradient(circle at 30% 30%, ${color.hex}, rgba(0,0,0,0))`;
         circle.classList.add('filled', 'animate-pop');
         gridState[currentRowIndex][currentColIndex] = color;
+        
+        // Deshabilitar el botón seleccionado
+        if (targetBtn) targetBtn.disabled = true;
     }
 
     currentColIndex++;
@@ -123,6 +147,11 @@ function prepareNextRow() {
     if (currentRowIndex < 10) {
         renderHistoryGrid();
         updateUI();
+        
+        // Re-habilitar todos los colores para el nuevo intento
+        const buttons = document.querySelectorAll('#player-slots .sphere-3d');
+        buttons.forEach(btn => btn.disabled = false);
+
         const activeRow = document.getElementById(`row-${currentRowIndex}`);
         if (activeRow) activeRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     } else {

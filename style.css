@@ -541,6 +541,14 @@ body {
     transform: scale(0.92);
 }
 
+.sphere-3d:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    filter: grayscale(0.5);
+    transform: scale(0.9);
+    pointer-events: none;
+}
+
 .history-circle {
     width: 1.4rem;
     height: 1.4rem;
