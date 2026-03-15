@@ -14,41 +14,46 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
-
 <body class="font-display bg-background-dark text-slate-100 h-screen overflow-hidden selection:bg-primary/30">
     <div class="relative h-full flex flex-col bg-gradient-radial">
 
         <!-- MAIN: En móvil es un bloque, en LG es un grid de 12 columnas estrictas -->
-        <main class="flex-1 max-w-7xl mx-auto px-4 py-1 w-full min-h-0 overflow-hidden lg:grid lg:grid-cols-12 lg:gap-8">
+        <main
+            class="flex-1 max-w-7xl mx-auto px-4 py-1 w-full min-h-0 overflow-hidden lg:grid lg:grid-cols-12 lg:gap-8">
 
             <!-- COLUMNA IZQUIERDA (Historial) -->
             <!-- lg:col-span-4 limita el ancho al 33% en escritorio -->
             <aside class="flex flex-col lg:col-span-4 max-h-[35vh] lg:max-h-full min-h-0 mb-1 lg:mb-0">
-                <div class="flex items-center p-2 px-4 shrink-0">
+                <div class="flex flex-col items-center py-2 px-2 shrink-0">
                     <span id="attempt-badge"
                         class="text-base lg:text-lg font-black px-4 py-1 rounded-full bg-primary text-white uppercase tracking-widest shadow-[0_0_20px_rgba(236,91,19,0.3)]">
                         INTENTO: 01
                     </span>
                 </div>
 
-                <div id="history-grid" class="flex-1 flex flex-col gap-1 lg:gap-2 overflow-y-auto px-4 custom-scrollbar">
+                <div id="history-grid"
+                    class="flex-1 flex flex-col gap-1 lg:gap-2 overflow-y-auto px-4 custom-scrollbar">
                     <!-- Filas inyectadas -->
                 </div>
             </aside>
 
             <!-- COLUMNA DERECHA (Juego) -->
             <!-- lg:col-span-8 ocupa el resto del espacio lateral en escritorio -->
-            <section class="lg:col-span-8 flex flex-col justify-start lg:justify-center gap-2 lg:gap-6 min-h-0 -mt-3 lg:mt-0">
+            <section
+                class="lg:col-span-8 flex flex-col justify-start lg:justify-center gap-2 lg:gap-6 min-h-0 -mt-3 lg:mt-0">
 
                 <div class="text-center shrink-0">
                     <div id="victory-header" style="display: none;" class="animate-pop mb-1">
-                        <h2 class="text-2xl lg:text-4xl font-black text-yellow-400 tracking-tighter uppercase">¡FELICITACIONES!</h2>
+                        <h2 class="text-2xl lg:text-4xl font-black text-yellow-400 tracking-tighter uppercase">¡ORDEN
+                            EXACTO!</h2>
                     </div>
                     <div id="failure-header" style="display: none;" class="animate-pop mb-1">
-                        <h2 class="text-2xl lg:text-4xl font-black text-red-500 tracking-tighter uppercase">¡FIN DEL JUEGO!</h2>
+                        <h2 class="text-2xl lg:text-4xl font-black text-red-500 tracking-tighter uppercase">¡FIN DEL
+                            JUEGO!</h2>
                     </div>
 
-                    <h1 id="game-title" class="text-2xl lg:text-5xl font-black tracking-tighter text-white uppercase m-0 p-0">
+                    <h1 id="game-title"
+                        class="text-2xl lg:text-5xl font-black tracking-tighter text-white uppercase m-0 p-0">
                         Descubre el <span class="text-primary italic">Orden</span>
                     </h1>
                 </div>
@@ -57,10 +62,14 @@
                 <div id="hidden-container"
                     class="glass-panel rounded-2xl p-2 lg:p-5 bg-white/5 border-white/10 mx-auto w-full max-w-sm shadow-2xl">
                     <div id="hidden-zone" class="flex justify-center gap-3 lg:gap-6">
-                        <div class="mystery-slot" data-index="0"><span class="material-symbols-outlined text-xl">question_mark</span></div>
-                        <div class="mystery-slot" data-index="1"><span class="material-symbols-outlined text-xl">question_mark</span></div>
-                        <div class="mystery-slot" data-index="2"><span class="material-symbols-outlined text-xl">question_mark</span></div>
-                        <div class="mystery-slot" data-index="3"><span class="material-symbols-outlined text-xl">question_mark</span></div>
+                        <div class="mystery-slot" data-index="0"><span
+                                class="material-symbols-outlined text-xl">question_mark</span></div>
+                        <div class="mystery-slot" data-index="1"><span
+                                class="material-symbols-outlined text-xl">question_mark</span></div>
+                        <div class="mystery-slot" data-index="2"><span
+                                class="material-symbols-outlined text-xl">question_mark</span></div>
+                        <div class="mystery-slot" data-index="3"><span
+                                class="material-symbols-outlined text-xl">question_mark</span></div>
                     </div>
                 </div>
 
@@ -90,7 +99,10 @@
         </main>
 
         <!-- Background Orbs -->
-        <div class="absolute -top-[5%] -left-[5%] size-[300px] bg-primary/15 blur-[100px] rounded-full pointer-events-none"></div>
+        <div
+            class="absolute -top-[5%] -left-[5%] size-[300px] bg-primary/15 blur-[100px] rounded-full pointer-events-none">
+        </div>
     </div>
 </body>
+
 </html>
