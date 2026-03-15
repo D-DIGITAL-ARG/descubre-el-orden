@@ -26,6 +26,7 @@ function initGame() {
     renderHistoryGrid();
     renderSelectionPool();
     updateUI();
+    console.log(secretSequence);
 }
 
 function renderHistoryGrid() {
@@ -136,8 +137,8 @@ function updateUI() {
     const feedback = document.getElementById('feedback');
     if (feedback && currentRowIndex > 0) {
         const lastScore = rowResults[currentRowIndex - 1];
-        feedback.innerText = lastScore == 0 ? "¡Ouch! Ningún color en su lugar." : `¡Ya tienes ${lastScore} en el lugar correcto!`;
-        feedback.className = "text-lg lg:text-lg text-yellow-400 font-medium animate-pulse";
+        feedback.innerText = lastScore === 0 ? "¡Ouch! Ningún color en su lugar." : `¡Ya tienes ${lastScore} en el lugar correcto!`;
+        feedback.className = "text-lg lg:text-lg mb-0 text-yellow-400 font-medium animate-pulse";
     }
 }
 
@@ -148,6 +149,7 @@ function winGame() {
     document.getElementById('victory-header').style.display = 'block';
     document.getElementById('game-title').style.display = 'none';
     document.getElementById('selection-container').style.display = 'none';
+    document.getElementById('feedback').style.display = 'none';
     document.getElementById('reset-container').style.display = 'flex';
 }
 
@@ -159,6 +161,7 @@ function endGame(won) {
         document.getElementById('failure-header').style.display = 'block';
         document.getElementById('game-title').style.display = 'none';
         document.getElementById('selection-container').style.display = 'none';
+	document.getElementById('feedback').style.display = 'none';
         document.getElementById('reset-container').style.display = 'flex';
     }
 }
